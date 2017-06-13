@@ -6,14 +6,16 @@ var mysql = require('mysql');
 
 
 var con = mysql.createConnection({
-  host: '127.0.0.1:3000',
+  host: '127.0.0.1',
   user: 'root',
-  password: 'plantlife'
+  password: 'plantlife',
+  database: 'chat'
+  
 });
 
 con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+  if (err) { throw err; }
+  console.log('Connected!');
 });
 
 exports.con = con;

@@ -14,12 +14,12 @@ module.exports.app = app;
 // Set what we are listening on.
 app.set('port', 3000);
 
-// Logging and parsingfjflkjjkkj
+// Logging and parsing
 app.use(morgan('dev'));
 app.use(parser.json());
 
 // Set up our routes
-app.use('/classes', '/users', router); // /users path
+app.use('/classes', router);
 
 // Serve the client files
 app.use(express.static(__dirname + '/../client'));
