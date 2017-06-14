@@ -3,7 +3,7 @@ var db = require('../db');
 
 let insertIntoMessages = function(userId, messageObject, callback) { // callback with userid
   // takes in userId
-  let sql = `insert into messages values (null, '${messageObject.message}', '${userId}')`;
+  let sql = `insert into messages values (null, '${messageObject.message}', '${userId}', '${messageObject.roomname}')`;
   db.con.query(sql, (err, results) => {
     if (err) {
       console.log(err);
@@ -18,7 +18,7 @@ let insertIntoMessages = function(userId, messageObject, callback) { // callback
 module.exports = {
   messages: {
     get: function (callback) {    
-      let sql = `select m.message, u.name from messages m INNER JOIN users u on m.userId = u.userId`; 
+      let sql = `select m.objectId, m.message, m.roomname, u.name from messages m INNER JOIN users u on m.userId = u.userId`; 
       db.con.query(sql, (err, results) => {
         if (err) {
           console.log(err);

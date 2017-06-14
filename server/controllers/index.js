@@ -8,18 +8,23 @@ module.exports = {
           console.log('ERROR', err);
           res.status(500).end();
           return;
+        } else {
+          console.log('RESULTS', results);
+          res.status(200).end(JSON.stringify({results: results}));
         }
-        console.log('RESULTS', results);
-        res.status(200).end(JSON.stringify(results));
       });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
+      
       models.messages.post(req.body, (err) => {
+        
         if (err) {
           console.log(err);
+          res.status(500).end();
           return;
+        } else {
+          res.status(201).end(JSON.stringify({}));
         }
-        res.status(201).end(JSON.stringify(req.body));
       });
       
     } // a function which handles posting a message to the database

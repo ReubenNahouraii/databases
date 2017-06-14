@@ -11,11 +11,12 @@ CREATE TABLE users (
 
 CREATE TABLE messages (
   /* Describe your table here.*/
-  messageId int not null auto_increment,
+  objectId int not null auto_increment,
   message varchar(255),
   userId int, 
-  primary key (messageId)
-  -- foreign key (userId) references users (userId)
+  roomname char(30),
+  primary key (objectId)
+  -- foreign key (userId) references users (userId)uuu
 );
 
 /* Create other tables and define schemas for them here! */
