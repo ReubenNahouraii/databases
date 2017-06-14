@@ -15,17 +15,19 @@ let insertIntoMessages = function(userId, messageObject, callback) { // callback
   });
 };
 
-
-
 module.exports = {
   messages: {
-    get: function () {
-      
-      
+    get: function (callback) {    
+      let sql = `select m.message, u.name from messages m INNER JOIN users u on m.userId = u.userId`; 
+      db.con.query(sql, (err, results) => {
+        if (err) {
+          console.log(err);
+          callback(err);
+        }
+        callback(null, results);
+      });
     }, // a function which produces all the messages
     post: function (messageObject, callback) {
-      
-        // select id in user where name = same as mss Obj name 
       let sql = `select userId from users where name = '${messageObject.name}'`;
       db.con.query(sql, (err, results) => {
         console.log('RESULTS', results);
@@ -49,17 +51,7 @@ module.exports = {
             insertIntoMessages(results.insertId, messageObject, callback);
           });
         }
-          
-          
       });
-        // if userid exists from results.id callback of resultsid   then insert values ti that id into the messages table
-        
-          // else need to go and insert that name into the user table then get thae id from results and finally insert into the messafeg table
-          
-           
-      
-      // let sql = `insert into messages values (null, '${messageobject.message}', (select userid from user where name = '${messageobject.name}')`; /// select from user id where name = julia
-
     } // a function which can be used to insert a message into the database
   },
 
@@ -70,8 +62,9 @@ module.exports = {
       db.con.query(sql, (err, data) => {
         if (err) {
           console.log(err);
+          return;
         }
-        callback(data);
+        callback(null, data);
       }); 
     },
     post: function (userObject) {
